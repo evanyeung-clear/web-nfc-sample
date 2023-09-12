@@ -14,6 +14,13 @@ scanButton.addEventListener("click", async () => {
         log(`> Serial Number: ${serialNumber}`);
         log(`> Records: (${message.records.length})`);
         for (const record of message.records) {
+          log(`> Record type: ${record.recordType}`);
+          log(`> Media type: ${record.mediaType}`);
+          log(`> Id: ${record.id}`);
+          log(`> Data: ${record.data}`);
+          log(`> Encodig: ${record.encoding}`);
+          log(`> Lang: ${record.lang}`);
+
           if (record.recordType === "text") {
             const decoder = new TextDecoder(record.encoding);
             text = decoder.decode(record.data);
