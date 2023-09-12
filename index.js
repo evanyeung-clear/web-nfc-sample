@@ -13,7 +13,15 @@ scanButton.addEventListener("click", async () => {
       ndef.addEventListener("reading", ({ message, serialNumber }) => {
         log(`> Serial Number: ${serialNumber}`);
         log(`> Records: (${message.records.length})`);
-        log(`> Message: (${message})`);
+        for (const record of message.records) {
+          if (record.recordType === "text") {
+            const decoder = new TextDecoder(record.encoding);
+            text = decoder.decode(record.data);
+            log(`> Data: (${text})`);
+          } else if (record.recordType === ":act") {
+            action = record.data.getUint8(0);
+          }
+        };
       });
     } catch (error) {
       log("Argh! " + error);
